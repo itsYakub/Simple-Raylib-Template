@@ -1,6 +1,6 @@
 # ------------------------------------------------------------------------------
 # Simple Raylib Template
-# 
+# https://github.com/itsYakub/Simple-Raylib-Template.git
 # ------------------------------------------------------------------------------
 # Author:
 # https://github.com/itsYakub
@@ -13,11 +13,6 @@
 # - include/ - header files direcotry
 # - res/ - resources / assets directory
 # - bin/ - binary / final exec. directory
-# ------------------------------------------------------------------------------
-# 
-# ------------------------------------------------------------------------------
-# Most parts of this CMakeLists.txt file fomes from this source:
-# https://github.com/raysan5/raylib/tree/master/projects/CMake
 # ------------------------------------------------------------------------------
 # LICENCE (MIT):
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -38,6 +33,9 @@
 # OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
 # OR OTHER DEALINGS IN THE SOFTWARE.
 # ------------------------------------------------------------------------------
+# Most parts of this CMakeLists.txt file fomes from this source:
+# https://github.com/raysan5/raylib/tree/master/projects/CMake
+# ------------------------------------------------------------------------------
 
 cmake_minimum_required(VERSION 3.14)
 
@@ -45,7 +43,7 @@ project(
     game 
     VERSION 1.0
     DESCRIPTION "Simple C template for Raylib" 
-    HOMEPAGE_URL "https://github.com/itsYakub/RaylibGameTemplate"
+    HOMEPAGE_URL "https://github.com/itsYakub/Simple-Raylib-Template.git"
     LANGUAGES C
 )
 
