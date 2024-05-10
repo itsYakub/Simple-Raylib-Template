@@ -33,84 +33,104 @@
 # OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
 # OR OTHER DEALINGS IN THE SOFTWARE.
 # ------------------------------------------------------------------------------
-# Most parts of this CMakeLists.txt file fomes from this source:
+# Most parts of this CMakeLists.txt file comes from this source:
 # https://github.com/raysan5/raylib/tree/master/projects/CMake
 # ------------------------------------------------------------------------------
 
+# ----------------------
+# Section: Project setup
+# ----------------------
 cmake_minimum_required(VERSION 3.14)
 
 project(
-    game 
-    VERSION 1.0
-    DESCRIPTION "Simple C template for Raylib" 
-    HOMEPAGE_URL "https://github.com/itsYakub/Simple-Raylib-Template.git"
-    LANGUAGES C
+    game # Application's name;
+    VERSION 1.0 # Application's version;
+    DESCRIPTION "Simple C template for Raylib" # Application's description;
+    HOMEPAGE_URL "https://github.com/itsYakub/Simple-Raylib-Template.git" # Application's URL Page (i.e. GitHub repository)
+    LANGUAGES C # Application's primary language
 )
 
-# Dependencies
-set(RAYLIB_VERSION 5.0)
-include(FetchContent)
-FetchContent_Declare(
-    raylib
-    DOWNLOAD_EXTRACT_TIMESTAMP OFF
-    URL https://github.com/raysan5/raylib/archive/refs/tags/${RAYLIB_VERSION}.tar.gz
-)
-FetchContent_GetProperties(raylib)
-
-if (NOT raylib_POPULATED)
-
-    set(FETCHCONTENT_QUIET NO)
-    FetchContent_Populate(raylib)
-    set(BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
-    add_subdirectory(${raylib_SOURCE_DIR} ${raylib_BINARY_DIR})
-    
-endif()
-
+# CMAKE_EXPORT_COMPILE_COMMANDS - creates the compilation database file if enabled (crucial element of LSP like clangd).
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+# raylib_VERBOSE - allows verbosity for raylib if enabled (set to 1).
 set(raylib_VERBOSE 1)
 
-# Our Project
+# ---------------------
+# Section: Dependencies
+# ---------------------
 
-# Project's source files:
-# Edit this variable to include all the source files (*.c, *.cpp, *.cc etc.) that the project requires
+include(FetchContent)
 
+FetchContent_Declare(
+    raylib
+    GIT_REPOSITORY https://github.com/raysan5/raylib.git
+    GIT_TAG 5.0
+)
+
+FetchContent_MakeAvailable(raylib)
+
+# ---------------------------------
+# Section: Source files and Headers
+# ---------------------------------
+
+# SOURCES: Source files
 file(
     GLOB SOURCES 
 
     ${CMAKE_SOURCE_DIR}/src/*.c
 )
 
-
-# Project's include directories:
-# Edit this variable to include all the directories with necessary header files
-
+# INCLUDE_DIRECTORIES: Header file directories
 set(
     INCLUDE_DIRECTORIES
-    ${CMAKE_SOURCE_DIR}/include # default project include directory
-    ${CMAKE_SOURCE_DIR}/lib/raylib/src # raysan5/raylib
+    ${CMAKE_SOURCE_DIR}/include
 )
+
+# ---------------------
+# Section: Target setup
+# ---------------------
 
 add_executable(${PROJECT_NAME} ${SOURCES})
 target_link_libraries(${PROJECT_NAME} raylib)
 target_include_directories(${PROJECT_NAME} PUBLIC ${INCLUDE_DIRECTORIES})
 
+# ----------------------------------
+# Section: Compiler & Linker options
+# ----------------------------------
+
 if (LINUX)
 
+    # LINUX: Telling the linker to statically link the libgcc and libstdc++ to out project.
+    # (Source: https://gcc.gnu.org/onlinedocs/gcc/Link-Options.html)
     target_link_options(${PROJECT_NAME} PRIVATE -static-libgcc -static-libstdc++)
 
 endif()
 
 if (WIN32)
 
+    # WINDOWS: Telling the compiler to build a window application (If you want to make a console application, change this option to: `-mconsole`).
+    # (Source: https://gcc.gnu.org/onlinedocs/gcc/Cygwin-and-MinGW-Options.html)
     target_compile_options(${PROJECT_NAME} PRIVATE -mwindows)
+
+    # WINDOWS: Telling the linker to statically link our application.
+    # (Source: https://gcc.gnu.org/onlinedocs/gcc/Link-Options.html)
     target_link_options(${PROJECT_NAME} PRIVATE -static)
 
 endif()
 
 if (APPLE)
 
+    # APPLE: Telling the linker to link to: IOKit - Access hardware devices and drivers from your apps and services.
+    # (Source: https://developer.apple.com/documentation/iokit)
     target_link_libraries(${PROJECT_NAME} "-framework IOKit")
+
+    # APPLE: Telling the linker to link to: Cocoa - native object-oriented application programming interface.
+    # (Source: https://en.wikipedia.org/wiki/Cocoa_(API))
     target_link_libraries(${PROJECT_NAME} "-framework Cocoa")
+
+    # APPLE: Telling the linker to link to: OpenGL - cross-language, cross-platform application programming interface for rendering 2D and 3D vector graphics.
+    # (Source: https://en.wikipedia.org/wiki/OpenGL)
     target_link_libraries(${PROJECT_NAME} "-framework OpenGL")
 
 endif()
