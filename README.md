@@ -16,26 +16,22 @@ This is the simple template for raylib games and applications, written in C.
 ## Setup 🛠️
 - Create a Github repository from this template or clone this repo directly from Github (up to you!);
 - In the projects directory:
-    - Pull all the ncessary submodules:
-    ```bash
-    git submodule update --init --recursive
-    ```
     - Create and enter your final binary directory:
-    ```bash
-    mkdir bin/
-    cd bin/
+    ```console
+    $ mkdir bin/
+    $ cd bin/
     ```
     - Generate a build file of your choosing...
-    ```bash
-    cmake .. -G  <generator-name>
+    ```console
+    $ cmake .. -G  <generator-name>
     ```
     ... or use a default generator:
-    ```bash
-    cmake ..
+    ```console
+    $ cmake ..
     ```
     - Build your final executable file:
-    ```bash
-    cmake --build .
+    ```console
+    $ cmake --build .
     ```
 
 ## ©️ Credits
