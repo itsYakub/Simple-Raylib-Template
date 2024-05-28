@@ -40,6 +40,7 @@
 # ----------------------
 # Section: Project setup
 # ----------------------
+
 cmake_minimum_required(VERSION 3.14)
 
 project(
@@ -105,6 +106,9 @@ if (LINUX)
     # (Source: https://gcc.gnu.org/onlinedocs/gcc/Link-Options.html)
     target_link_options(${PROJECT_NAME} PRIVATE -static-libgcc -static-libstdc++)
 
+    # LINUX: Setting the target executable's suffix (for linux: *.out).
+    set_target_properties(${exec} PROPERTIES SUFFIX ".out")
+
 endif()
 
 if (WIN32)
@@ -116,6 +120,9 @@ if (WIN32)
     # WINDOWS: Telling the linker to statically link our application.
     # (Source: https://gcc.gnu.org/onlinedocs/gcc/Link-Options.html)
     target_link_options(${PROJECT_NAME} PRIVATE -static)
+
+    # WINDOWS: Setting the target executable's suffix (for Win32: *.exe).
+    set_target_properties(${exec} PROPERTIES SUFFIX ".exe")
 
 endif()
 
@@ -132,5 +139,8 @@ if (APPLE)
     # APPLE: Telling the linker to link to: OpenGL - cross-language, cross-platform application programming interface for rendering 2D and 3D vector graphics.
     # (Source: https://en.wikipedia.org/wiki/OpenGL)
     target_link_libraries(${PROJECT_NAME} "-framework OpenGL")
+
+    # APPLE: Setting the target executable's suffix (for MacOS: *.app).
+    set_target_properties(${exec} PROPERTIES SUFFIX ".app")
 
 endif()
