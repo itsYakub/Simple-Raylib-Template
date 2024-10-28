@@ -11,7 +11,6 @@ This is the simple template for raylib games and applications, written in C.
 ## Prerequesites 📝
 - **[Git;](https://git-scm.com/)**
 - **[CMake;](https://cmake.org/)**
-- **[Build system of your choosing;](https://cmake.org/cmake/help/latest/manual/cmake-generators.7.html#id7)**
 
 ## Setup 🛠️
 - Create a Github repository from this template or clone this repo directly from Github (up to you!);
@@ -21,16 +20,9 @@ This is the simple template for raylib games and applications, written in C.
     $ mkdir bin/
     $ cd bin/
     ```
-    - Generate a build file of your choosing...
-    ```console
-    $ cmake .. -G  <generator-name>
-    ```
-    ... or use a default generator:
+    - Build the project using CMake...
     ```console
     $ cmake ..
-    ```
-    - Build your final executable file:
-    ```console
     $ cmake --build .
     ```
 
